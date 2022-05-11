@@ -6,7 +6,7 @@ exports.createQuestion = expressAsyncHandler(async(req, res) =>{
     const section = await Question.create(req.body)
     const {answerOptions} = req.body
     // console.log(answerOptions.length)
-    if(answerOptions.length > 2){
+    if(answerOptions.length > 3){
         res.status(400).json({
             success: false
         })

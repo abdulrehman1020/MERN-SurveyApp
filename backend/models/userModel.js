@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 // const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "please enter your password"],
     minLength: [8, "Name should have more than 8 characters"],
-    select: false,
+    // select: false,
   },
 //   avatar: {
 //     public_id: {
@@ -54,16 +54,16 @@ const userSchema = new mongoose.Schema({
 // });
 
 //JWT TOKEN
-// userSchema.methods.getJWTToken = function () {
-//   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-//     expiresIn: "5d",
-//   });
-// };
+userSchema.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, "dbkfashdnsdbkksdhmdjfnld", {
+    expiresIn: "5d",
+  });
+};
 
 // // compare password
-// userSchema.methods.comparePassword = async function (password) {
-//   return await bcrypt.compare(password, this.password);
-// };
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 // // generating password reset token
 // userSchema.methods.getResetPasswordToken = function () {

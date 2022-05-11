@@ -1,7 +1,7 @@
 
-const { AnswerOptionSchema } =  require('./answer-option-schema.js');
+// const { AnswerOptionSchema } =  require('./answer-option-schema.js');
 const mongoose = require('mongoose');
-const validator = require("validator");
+// const validator = require("validator");
 
 const QuestionSchema = new mongoose.Schema({
   question: {

@@ -2,7 +2,7 @@ const expressAsyncHandler = require('express-async-handler')
 const Question = require('../models/sectionModel')
 
 //CREATE SECTION
-exports.createQuestion = expressAsyncHandler(async(req, res) =>{
+exports.createQuestion = expressAsyncHandler(async(req, res, next) =>{
     const section = await Question.create(req.body)
     const {answerOptions} = req.body
     // console.log(answerOptions.length)
@@ -18,7 +18,7 @@ exports.createQuestion = expressAsyncHandler(async(req, res) =>{
 })
 
 //GET ALL SECTIONS
-exports.getAllQuestions = expressAsyncHandler(async (req, res)=>{
+exports.getAllQuestions = expressAsyncHandler(async (req, res, next)=>{
     const section = await Question.find()
     if(!section){
         res.status(400).json({message:"Question not found"})
@@ -29,8 +29,33 @@ exports.getAllQuestions = expressAsyncHandler(async (req, res)=>{
     })
 })
 
+exports.randomQuestions = expressAsyncHandler(async(req, res)=>{
+    const option = Question[2]
+    console.log(option)
+    const questions = await Question.findOne([3])
+    if(!questions){
+        res.status(400).json({message:"Question not found"})
+    }
+    res.status(200).json({
+        success: true,
+        questions
+    })
+    // Model.count().exec(function(err, count){
+
+    //     var random = Math.floor(Math.random() * count);
+      
+    //     Model.findOne().skip(random).exec(
+    //       function (err, result) {
+      
+    //         // result is random 
+      
+    //     });
+      
+    //   });
+})
+
 //DELETE SECTION
-exports.deleteQuestion = expressAsyncHandler(async(req, res)=>{
+exports.deleteQuestion = expressAsyncHandler(async(req, res, next)=>{
     let section = await Question.findById(req.params.id)
     if(!section){
         res.status(400).json({message:"Question not found"})
@@ -44,7 +69,7 @@ exports.deleteQuestion = expressAsyncHandler(async(req, res)=>{
 })
 
 //UPDATE SECTION
-exports.updateQuestion = expressAsyncHandler(async(req, res)=>{
+exports.updateQuestion = expressAsyncHandler(async(req, res, next)=>{
     let section = await Question.findById(req.params.id)
     if (!section){
         res.status(400).json({message:"Question not found"})

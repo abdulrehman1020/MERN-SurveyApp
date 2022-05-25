@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 
 
 const connectDB =()=>{
@@ -16,13 +17,18 @@ PORT = 3000
 connectDB();
 
 app.use(express.json());
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 
 const section = require('./routes/sectionRoute')
 const user = require('./routes/userRoute')
+const survey = require('./routes/surveyRoute')
+const result = require('./routes/resultRoute')
 
 app.use('/api/survay', section)
 app.use('/api/user', user)
+app.use('/api/section', survey)
+app.use('/api/result', result)
 
 app.listen(PORT, ()=>{
     console.log(`server is running at port ${PORT}`)

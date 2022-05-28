@@ -5,7 +5,8 @@ import './CreateQuestion.css'
 
 const CreateQuestion = () => {
 
-    const [createQuestion, responseInfo] = useCreateQuestionMutation()
+    const [createQuestion] = useCreateQuestionMutation()
+    // const [createQuestion, responseInfo] = useCreateQuestionMutation()
 
     const [question, setQuestion] = useState("")
     const [answer1, setAnswer1] = useState("")

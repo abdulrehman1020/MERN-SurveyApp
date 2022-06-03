@@ -29,6 +29,7 @@ const ShowQuestions = () => {
   //   )
   // );
 
+  
   // console.log(
   //   responseInfo.data.section.map((item) =>
   //     item.answerOptions.map((item) => {return item.answerBody})
@@ -41,6 +42,7 @@ const ShowQuestions = () => {
   // );
   // console.log(responseInfo)
   // const ar = [1, 2, 3];
+  const ar = [1, 2, 3];
   // const arr = ar.map((item) => {
   //   // console.log(item);
   //   return item;

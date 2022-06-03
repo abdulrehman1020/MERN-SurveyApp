@@ -1,0 +1,30 @@
+body{
+    background-color: aliceblue;
+}
+.left-section{
+    display: inline-block;
+    margin-top: 11%;
+    margin-left: 10%;
+}
+.section{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    
+}
+.section-img{
+    width: 70%;
+    /* margin-top: 38px; */
+    top: 80px;
+    position: relative;
+}
+.button{
+    border-radius: 50px;
+    color: white;
+    background-color: #760CEB;
+    width: 20%;
+    text-align: center;
+    padding-bottom: 2px;
+    cursor: pointer; 
+    margin-top: 20px;  
+}

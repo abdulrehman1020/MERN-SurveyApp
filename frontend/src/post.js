@@ -30,6 +30,16 @@ export const postApi = createApi({
               method: 'GET'
              })
             }),
+
+        deleteQuestion: builder.mutation({
+               query: (id) => {
+                console.log("Delete ID:", id)
+                return {
+                 url: `survay/sections/${id}`,
+                 method: 'DELETE'
+                }
+               }
+              }),   
       
        
         
@@ -37,4 +47,4 @@ export const postApi = createApi({
 
 })    
 
-export const { useCreateQuestionMutation, useGetAllQuestionQuery, } = postApi
+export const { useCreateQuestionMutation, useGetAllQuestionQuery, useDeleteQuestionMutation, } = postApi

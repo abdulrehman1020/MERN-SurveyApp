@@ -14,12 +14,12 @@ const { isAuthenticatedUser, authorizeRoles } = require("../controller/auth");
 
 router
   .route("/create")
-  .post( createQuestion);
+  .post(createQuestion, isAuthenticatedUser, authorizeRoles("admin"));
 router.route("/sections").get(getAllQuestions);
 router.route("/random").get(randomQuestions);
 router
   .route("/sections/:id")
-  .delete(deleteQuestion, isAuthenticatedUser, authorizeRoles("admin"))
+  .delete(deleteQuestion)
   .put(updateQuestion, isAuthenticatedUser, authorizeRoles("admin"))
   .get(singleQuestion, isAuthenticatedUser);
 

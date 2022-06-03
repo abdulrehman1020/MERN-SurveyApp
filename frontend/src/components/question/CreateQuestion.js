@@ -54,21 +54,21 @@ const CreateQuestion = () => {
         <input
           className="answer"
           type="text"
-          placeholder="Answer"
+          placeholder="Option"
           value={answer1}
           onChange={(e) => setAnswer1(e.target.value)}
         />
         <input
           className="answer"
           type="text"
-          placeholder="Answer"
+          placeholder="Option"
           value={answer2}
           onChange={(e) => setAnswer2(e.target.value)}
         />
         <input
           className="answer"
           type="text"
-          placeholder="Answer"
+          placeholder="Option"
           value={answer3}
           onChange={(e) => setAnswer3(e.target.value)}
         />
@@ -83,7 +83,7 @@ const CreateQuestion = () => {
                   >
                     Close
                   </div> */}
-        <div className="btn" onClick={imc}>Save</div>
+        <div className="button" onClick={imc}>Save</div>
       </div>
     </div>
   );

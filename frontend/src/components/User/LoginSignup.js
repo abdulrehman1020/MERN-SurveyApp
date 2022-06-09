@@ -1,26 +1,15 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
-// import Loader from "../layout/Loader/Loader";
-// import { Link } from "react-router-dom";
-// import MailOutlineIcon from "@material-ui/icons/MailOutline";
-// import LockOpenIcon from "@material-ui/icons/LockOpen";
-// import FaceIcon from "@material-ui/icons/Face";
-// import { useDispatch, useSelector } from "react-redux";
-// import { clearErrors, login, register } from "../../actions/userAction";
-// import { useAlert } from "react-alert";
 import { useCreateUserMutation, useLoginUserMutation } from '../../redux/user'
-// import { isAuthenticated } from '../../../../backend/controller/auth'
+import {useNavigate} from "react-router-dom"
 
-const LoginSignup = ({history,location}) => {
+
+const LoginSignup = () => {
     const [createUser, responseInfo] = useCreateUserMutation()
     const [loginUser] = useLoginUserMutation()
+    const nav = useNavigate();
     console.log(responseInfo)
-//   const dispatch = useDispatch();
-//   const alert = useAlert();
 
-//   const { error, loading, isAuthenticated } = useSelector(
-//     (state) => state.user
-//   );
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
@@ -47,14 +36,19 @@ const LoginSignup = ({history,location}) => {
     // const [avatar, setAvatar] = useState("/profile.jpg");
     // const [avatarPreview, setAvatarPreview] = useState("/Profile.jpg");
 
-    const loginSubmit = (e) => {
+    const loginSubmit = async (e) => {
         e.preventDefault();
-        let loginuser = {
-          email: loginEmail,
-          password: loginPassword
+        try {
+          let loginuser = {
+            email: loginEmail,
+            password: loginPassword
+          }
+          await loginUser(loginuser)
+          nav('/all-questions')
+        } catch (error) {
+          alert(error.message)
         }
-        loginUser(loginuser)
-        history.push('/all-questions')
+        
       };
 
       const registerSubmit = (e) => {

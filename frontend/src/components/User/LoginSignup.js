@@ -2,14 +2,22 @@ import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
 import { useCreateUserMutation, useLoginUserMutation } from '../../redux/user'
 import {useNavigate} from "react-router-dom"
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const LoginSignup = () => {
-    const [createUser, responseInfo] = useCreateUserMutation()
-    const [loginUser] = useLoginUserMutation()
-    const nav = useNavigate();
-    console.log(responseInfo)
+    const [createUser, responseInfo1] = useCreateUserMutation()
+    const [loginUser, responseInfo] = useLoginUserMutation()
+      const {isSuccess,isError, error} = responseInfo
+    const nav = useNavigate()
+    ;
+    const isError1=responseInfo1.isError
+   console.log(isError1)
 
+    // console.log(isError);
+  // if (isError){
+  //   console.log(error.message);
+  // }
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
@@ -38,21 +46,33 @@ const LoginSignup = () => {
 
     const loginSubmit = async (e) => {
         e.preventDefault();
-        try {
+
           let loginuser = {
             email: loginEmail,
             password: loginPassword
           }
           await loginUser(loginuser)
+
+        if(isError){
+          toast.error(error.data.message);
+        }  
+        if(isSuccess){
+          toast.success("LoggedIn Successfully");
           nav('/all-questions')
-        } catch (error) {
-          alert(error.message)
-        }
+        };
         
       };
 
       const registerSubmit = (e) => {
         e.preventDefault();
+        // if(data.isError){
+        //   toast.error(data.error.data.message);
+        // }  
+        
+        if(isError1){
+          toast.error(responseInfo1.error.data.message);
+          // console.log("error")
+      }
         let newUser = {
             name: name,
             email: email,
@@ -60,6 +80,10 @@ const LoginSignup = () => {
         }
     
         createUser(newUser)
+        if(responseInfo1.isSuccess){
+          // toast.error(.error.data.message);
+          toast.success("Registered Successfully")
+      }
       };
     
       // useEffect(() => {
@@ -88,16 +112,13 @@ const LoginSignup = () => {
 
     //   const redirect= location.search ? location.search.split("=")[1] : "/account";
 
-    //   useEffect(() => {
-    //     if (error) {
-    //       alert.error(error);
-    //       dispatch(clearErrors());
-    //     }
+      useEffect(() => {
+        
     
-    //     if (isAuthenticated) {
-    //       history.push(redirect);
-    //     }
-    //   }, [dispatch, error, alert,history,isAuthenticated,redirect]);
+        // if (isAuthenticated) {
+        //   history.push(redirect);
+        // }
+      }, [isError, error]);
 
       const switchTabs = (e, tab) => {
         if (tab === "login") {
@@ -123,6 +144,11 @@ const LoginSignup = () => {
     //     <Loader  />
     //   ):(
         <Fragment>
+          <div></div>
+          <Toaster 
+          position="top-center"
+          reverseOrder={false}
+           />
         <div className="LoginSignUpContainer">
           <div className="LoginSignUpBox">
             <div>

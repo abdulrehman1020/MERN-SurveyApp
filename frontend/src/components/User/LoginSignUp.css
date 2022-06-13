@@ -162,6 +162,14 @@
   .shiftToRight {
     transform: translateX(100%);
   }
+
+
+.toast{
+  position:"bottom-center"
+  /* reverseOrder:{false} */
+}
+
+
   
   @media screen and (max-width: 600px) {
     .LoginSignUpContainer {

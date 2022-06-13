@@ -8,7 +8,7 @@ import CreateQuestion from './components/question/CreateQuestion'
 import ShowQuestions from './components/question/ShowQuestions';
 import LoginSignup from './components/User/LoginSignup'
 
-console.log(Home)
+// console.log(Home)
 function App() {
   return (
     <>

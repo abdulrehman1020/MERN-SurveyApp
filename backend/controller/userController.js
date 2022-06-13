@@ -7,6 +7,10 @@ const sendToken = require('./jwtToken')
 
 exports.createUser = expressAsyncHandler(async(req, res) =>{
     let {password, name, email} = req.body
+    const userr = await User.findOne({ email });
+    if(userr){
+      res.status(400).json({message:"email already registered"})
+    }
     password = await bcrypt.hash(password, 10)
     let user = await User.create({
         name,
@@ -23,13 +27,13 @@ exports.loginUser = expressAsyncHandler(async (req, res, next) => {
   
     // checking if user has entered email and pass both
     if (!email || !password) {
-        res.status(400).json({message:"Question not found"})
+        res.status(400).json({message:"Please Enter email and password"})
     }
   
     const user = await User.findOne({ email }).select("+password");
   
     if (!user) {
-        res.status(400).json({message:"Question not found"})
+        res.status(400).json({message:"User not  found"})
     }
   
     const isPasswordMatched =await user.comparePassword(password);
@@ -37,7 +41,7 @@ exports.loginUser = expressAsyncHandler(async (req, res, next) => {
     // console.log(isPasswordMatched);
   
     if (!isPasswordMatched) {
-        res.status(400).json({message:"Question not found"})
+        res.status(400).json({message:"Incorrect Password"})
     }
   
     sendToken(user, 200, res);
@@ -97,4 +101,16 @@ exports.logout = expressAsyncHandler(async (req, res, next) => {
         return res.status(400).json(`${error.message}`)
     }
   });
+
+
+  // Get user detail
+
+exports.getUserDetails = expressAsyncHandler(async (req,res,next) => {
+  const user = await User.findByEmail(req.user.email);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
   

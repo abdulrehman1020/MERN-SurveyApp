@@ -5,19 +5,15 @@ import {useNavigate} from "react-router-dom"
 import toast, { Toaster } from 'react-hot-toast';
 
 
+
 const LoginSignup = () => {
     const [createUser, responseInfo1] = useCreateUserMutation()
-    const [loginUser, responseInfo] = useLoginUserMutation()
-      const {isSuccess,isError, error} = responseInfo
+    const [loginUser, {isSuccess,isError, error, isLoading, isFetching}] = useLoginUserMutation()
+      // const {isSuccess,isError, error} = responseInfo
     const nav = useNavigate()
     ;
     const isError1=responseInfo1.isError
-   console.log(isError1)
-
-    // console.log(isError);
-  // if (isError){
-  //   console.log(error.message);
-  // }
+  
 
     const loginTab = useRef(null);
     const registerTab = useRef(null);
@@ -33,11 +29,10 @@ const LoginSignup = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-    // const [user, setUser] = useState({
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    // });
+    const [user, setUser] = useState({
+      email: "",
+      password: "",
+    });
   
     // const { name, email, password } = user;
   
@@ -53,26 +48,13 @@ const LoginSignup = () => {
           }
           await loginUser(loginuser)
 
-        if(isError){
-          toast.error(error.data.message);
-        }  
-        if(isSuccess){
-          toast.success("LoggedIn Successfully");
-          nav('/all-questions')
-        };
         
       };
 
       const registerSubmit = (e) => {
         e.preventDefault();
-        // if(data.isError){
-        //   toast.error(data.error.data.message);
-        // }  
         
-        if(isError1){
-          toast.error(responseInfo1.error.data.message);
-          // console.log("error")
-      }
+       
         let newUser = {
             name: name,
             email: email,
@@ -81,44 +63,30 @@ const LoginSignup = () => {
     
         createUser(newUser)
         if(responseInfo1.isSuccess){
-          // toast.error(.error.data.message);
           toast.success("Registered Successfully")
-      }
+        }
+        if(isError1){
+          toast.error(responseInfo1?.error?.data.message);
+         }
+        
       };
     
-      // useEffect(() => {
-      //   if(loginSubmit){
-      //     history.push('/all-questions')
-      //   }
-      // }, [history, loginSubmit])
-      
-    //   const registerDataChange = (e) => {
-    //     if (e.target.name === "avatar") {
-    //       const reader = new FileReader();
-    
-    //       reader.onload = () => {
-    //         if (reader.readyState === 2) {
-    //           setAvatarPreview(reader.result);
-    //           setAvatar(reader.result);
-    //         }
-    //       };
-    
-    //       reader.readAsDataURL(e.target.files[0]);
-    //     } else {
-    //       setUser({ ...user, [e.target.name]: e.target.value });
-    //     }
-    //   }; 
-
-
-    //   const redirect= location.search ? location.search.split("=")[1] : "/account";
-
       useEffect(() => {
+        if(isSuccess){
+          toast.success("LoggedIn Successfully");
+          // nav('/user-profile')
+        }
         
-    
-        // if (isAuthenticated) {
-        //   history.push(redirect);
-        // }
-      }, [isError, error]);
+               
+        if(isError){
+          toast.error(error?.data?.message);
+        } 
+       
+
+      
+
+        
+      }, [isLoading, isFetching, responseInfo1]);
 
       const switchTabs = (e, tab) => {
         if (tab === "login") {

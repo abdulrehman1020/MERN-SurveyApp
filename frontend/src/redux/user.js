@@ -21,8 +21,10 @@ export const userApi = createApi({
                'Content-type': 'application/json; charset=UTF-8',
               }
              }
-            }
+            },
+            // onQueryStarted
            }),
+
            loginUser: builder.mutation({
             query: (user) => {
             //  console.log("Create Post: ", newPost)
@@ -30,15 +32,24 @@ export const userApi = createApi({
               url: `user/login`,
               method: 'POST',
               body: user,
+              credentials: 'include',
               headers: {
                'Content-type': 'application/json; charset=UTF-8',
               }
              }
             }
            }),
+
+           getDetail: builder.query({
+            query: () => ({
+             url: 'user/me',
+             method: 'GET',
+             credentials: 'include'
+            })
+           }),
         
        }),
 
 })    
 
-export const { useCreateUserMutation, useLoginUserMutation } = userApi
+export const { useCreateUserMutation, useLoginUserMutation, useGetDetailQuery } = userApi

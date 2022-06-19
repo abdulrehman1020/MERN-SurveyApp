@@ -3,25 +3,27 @@
 const mongoose = require('mongoose');
 // const validator = require("validator");
 
-const QuestionSchema = new mongoose.Schema([{
+const surveySchema = new mongoose.Schema([{
   
-  question: {
+  surveyName: {
     type: String,
     minlength: 10,
     maxlength: 1000,
   },
-  answerOptions: [{
-    answerBody: {
+  Questions: [{
+    question: {
         type: String,
-        minlength: 1,
+        minlength: 10,
         maxlength: 200,
       },
-    optionNumber: {
-    type: Number
-  },
+    answerOtions:{
+      type: Array,
+      // 
+      // 
+    }, 
   }
 ],
 // validate: validator.isLength(answerOptions, 1, 2),
 }]);
 
-module.exports = mongoose.model('Question', QuestionSchema);
+module.exports = mongoose.model('Survey', surveySchema);

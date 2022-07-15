@@ -14,7 +14,6 @@ import Profile from "./components/User/Profile.js";
 // console.log(Home)
 function App() {
 
-
   return (
     <>
     <Navbar />

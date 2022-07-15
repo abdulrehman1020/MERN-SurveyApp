@@ -25,5 +25,5 @@ const surveySchema = new mongoose.Schema([{
 ],
 // validate: validator.isLength(answerOptions, 1, 2),
 }]);
-
-module.exports = mongoose.model('Survey', surveySchema);
+  
+// module.exports = mongoose.model('Survey', surveySchema);

@@ -26,3 +26,10 @@ const surveySchema = new mongoose.Schema([{
 }]);
 
 module.exports = mongoose.model('Survey', surveySchema);
+
+
+
+// user: {
+//   name: '',
+//   email: ''
+// }

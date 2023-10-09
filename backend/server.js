@@ -7,7 +7,7 @@ const cors = require('cors')
 
 const connectDB =()=>{
 
-mongoose.connect('mongodb+srv://abdulrehman:1hello234@cluster0.xjwjw.mongodb.net/ecommerce?retryWrites=true&w=majority')
+mongoose.connect('')
         .then((data)=>{
             console.log(`MongoDB connected With Server ${data.connection.host}`)
         })
